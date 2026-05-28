@@ -1,7 +1,7 @@
 # A solution is a collection of related projects that share same base configuration.
 solution:
 
-  created-for: CMSIS-Toolbox@2.6.0
+  created-for: CMSIS-Toolbox@2.12.0
   description: Print Hello World and a counter value via UART
   cdefault:
 
@@ -16,19 +16,28 @@ solution:
   packs:
     - pack: ARM::CMSIS
     - pack: ARM::CMSIS-RTX
-    - pack: ARM::V2M_MPS3_SSE_300_BSP          # Corstone-300 (Cortex-M55)
-    - pack: ARM::V2M_MPS3_SSE_310_BSP          # SSE-310-MPS3_FVP
-    - pack: ARM::SSE_315_BSP                   # SSE-315-FVP
-    - pack: ARM::SSE_320_BSP                   # SSE-320-FVP    
-    - pack: Keil::V2M-MPS2_CMx_BSP             # For Cortex-M0 .. M33  ;  AVH-CM* devices.
-    - pack: Keil::V2M-MPS2_IOTKit_BSP          # For the IOTKit_CM23_VHT, IOTKit_CM33_VHT, and IOTKit_CM33_FP_VHT devices
-    - pack: Keil::V2M-MPS3_IOTKit_BSP          # For the IOTKit_CM33_MPS3 and the IOTKit_CM33_FP_MPS3 devices
-    - pack: ARM::CMSIS-Compiler                # For retargeting stdout to UART
+    - pack: ARM::V2M_MPS3_SSE_300_BSP # Corstone-300 (Cortex-M55)
+    - pack: ARM::V2M_MPS3_SSE_310_BSP # SSE-310-MPS3_FVP
+    - pack: ARM::SSE_315_BSP # SSE-315-FVP
+    - pack: ARM::SSE_320_BSP # SSE-320-FVP    
+    - pack: Keil::V2M-MPS2_CMx_BSP # For Cortex-M0 .. M33  ;  AVH-CM* devices.
+    - pack: Keil::V2M-MPS2_IOTKit_BSP # For the IOTKit_CM23_VHT, IOTKit_CM33_VHT, and IOTKit_CM33_FP_VHT devices
+    - pack: Keil::V2M-MPS3_IOTKit_BSP # For the IOTKit_CM33_MPS3 and the IOTKit_CM33_FP_MPS3 devices
+    - pack: ARM::CMSIS-Compiler # For retargeting stdout to UART
 
   # List different targets that are used to deploy the solution.
   target-types:
     - type: CS300
       device: ARM::SSE-300-MPS3
+      target-set:
+        - set:
+          images:
+            - project-context: Hello.Debug
+          debugger:
+            name: Arm-FVP
+            model: FVP_Corstone_SSE-300
+            config-file: FVP/FVP_Corstone_SSE-300/fvp_config.txt
+            args: ""
 
     - type: CS310
       device: ARM::SSE-310-MPS3_FVP
@@ -92,6 +101,10 @@ solution:
         - set:
           images:
             - project-context: Hello.Debug
+          debugger:
+            name: Arm-FVP
+            model: FVP_MPS2_Cortex-M7
+            config-file: FVP/FVP_MPS2_Cortex-M7/fvp_config.txt
 
     - type: CM7_SP
       device: ARM::CMSDK_CM7_SP_VHT
